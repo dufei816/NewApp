@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
     private DevicePolicyManager policyManager;
     private PowerManager.WakeLock mWakeLock;
     private boolean lock = false;
-    private int lockTime = 0;
 
 
     @Override
@@ -269,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+//http://m.qimenghb.com/api/stu.php?code=&card=41908E356476377015ACD05FFF1D957C8E543A96&sn=1&state=1
     private void upDataZhi(User user, int zhi) {
         if (user != null) {
             user.setWeight(zhi);
@@ -278,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
             uploadIntegral(user, "2", zhi + "");
         }
     }
-
+//http://112.74.160.179/gjj_weixin/portal/inf/uploadIntegral.jsp?code=CE7362228DFB8D74A50E520DC8BC786885DEAFB0&classtype=1&num=999999999
     private void uploadIntegral(User user, String clas, String num) {
         HttpUtil.getInstance().getApi().uploadIntegral(user.getCode(), clas, num)
                 .subscribeOn(Schedulers.io())
@@ -534,13 +533,6 @@ public class MainActivity extends AppCompatActivity {
             llDouble.setVisibility(View.GONE);
             llData.setVisibility(View.GONE);
             video++;
-            lockTime++;
-//            if (lockTime > 3000 && !lock) {
-//                lockTime = 0;
-//                checkScreenOff();
-
-//                stopVideo();
-//            }
             if (video > 75 && !isImage && !videoPlay) {
                 video = 0;
                 videoPlay = true;
@@ -549,7 +541,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else {
             video = 0;
-            lockTime = 0;
             return false;
         }
     }
