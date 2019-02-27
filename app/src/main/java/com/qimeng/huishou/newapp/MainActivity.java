@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void runing(int type, User user) {
+    private synchronized void runing(int type, User user) {
         if (user != null && !TextUtils.isEmpty(user.getXm())) {
             stopVideo();
             switch (type) {
@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 //http://m.qimenghb.com/api/stu.php?code=&card=41908E356476377015ACD05FFF1D957C8E543A96&sn=1&state=1
-    private void upDataZhi(User user, int zhi) {
+    private synchronized void upDataZhi(User user, int zhi) {
         if (user != null) {
             user.setWeight(zhi);
         }
@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void upDataPing(User user, int ping) {
+    private synchronized void upDataPing(User user, int ping) {
         if (user != null) {
             user.setCount(ping);
         }

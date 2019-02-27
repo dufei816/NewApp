@@ -6,8 +6,8 @@ android {
         applicationId "com.qimeng.huishou.newapp"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         manifestPlaceholders = [
                 GETUI_APP_ID : "IuW9VzV3tE8ManTMUKot6",

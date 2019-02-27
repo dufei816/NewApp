@@ -37,7 +37,7 @@ public class App extends Application {
 //                .eventListener(); //default: null
                 .apply();
 
-
+//
         PushManager.getInstance().initialize(this, null);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
         PushManager.getInstance().turnOnPush(this);
