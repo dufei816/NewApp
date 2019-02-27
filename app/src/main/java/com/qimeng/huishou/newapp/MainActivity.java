@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.RemoteException;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -45,6 +47,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 @SuppressLint("CheckResult")
+@RequiresApi(api = Build.VERSION_CODES.FROYO)
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity_Msg";
@@ -269,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 //http://m.qimenghb.com/api/stu.php?code=&card=41908E356476377015ACD05FFF1D957C8E543A96&sn=1&state=1
-    private synchronized void upDataZhi(User user, int zhi) {
+    private void upDataZhi(User user, int zhi) {
         if (user != null) {
             user.setWeight(zhi);
         }
@@ -279,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
     }
 //http://112.74.160.179/gjj_weixin/portal/inf/uploadIntegral.jsp?code=CE7362228DFB8D74A50E520DC8BC786885DEAFB0&classtype=1&num=999999999
     private void uploadIntegral(User user, String clas, String num) {
-        HttpUtil.getInstance().getApi().uploadIntegral(user.getCode(), clas, num)
+        HttpUtil.getInstance().getApi().uploadIntegral(MySharedPreferences.getInstance().getCode(), user.getCode(), clas, num)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {

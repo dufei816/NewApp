@@ -31,7 +31,7 @@ public interface Http {
      * @return
      */
     @GET("uploadIntegral.jsp")
-    Observable<User> uploadIntegral(@Query("code") String code, @Query("classtype") String clas, @Query("num") String num);
+    Observable<User> uploadIntegral(@Query("jqbh") String jqbh, @Query("code") String code, @Query("classtype") String clas, @Query("num") String num);
 
 
     /**
@@ -65,7 +65,6 @@ public interface Http {
      */
     @GET("pushxy.jsp")
     Observable<User> pushxy(@Query("bh") String bh, @Query("bt") String jqm, @Query("nr") String nr, @Query("jg") boolean jg);
-
 
 
     //文件Retrofit下载
