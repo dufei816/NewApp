@@ -33,10 +33,12 @@ import com.qimeng.huishou.newapp.net.HttpUtil;
 import com.qimeng.huishou.newapp.service.OnePixelReceiver;
 import com.qimeng.huishou.newapp.util.Code;
 import com.qimeng.huishou.newapp.util.Config;
+import com.qimeng.huishou.newapp.util.EncryptUtil;
 import com.qimeng.huishou.newapp.util.ModeUtil;
 import com.qimeng.huishou.newapp.util.MySharedPreferences;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.sfview)
     SurfaceView sfview;
 
+    private static final String key = "9ba45bfd500642328ec03ad8ef1b6e751234567890qwertaaaaaa";
+
     private static final String HUAN_BAO = "/mnt/sdcard/huanbao.mp4";
     //    private static final String HUI_SHOU = "/mnt/sdcard/huishou.mp4";
     private static final String HUI_SHOU = "/mnt/sdcard/chanpin.mp4";
@@ -121,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
     private DevicePolicyManager policyManager;
     private PowerManager.WakeLock mWakeLock;
     private boolean lock = false;
+    private EncryptUtil baseUtil;
 
 
     @Override
@@ -137,6 +142,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        try {
+            baseUtil = new EncryptUtil(key, "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         init();
         startMode();
     }
@@ -271,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-//http://m.qimenghb.com/api/stu.php?code=&card=41908E356476377015ACD05FFF1D957C8E543A96&sn=1&state=1
+
     private void upDataZhi(User user, int zhi) {
         if (user != null) {
             user.setWeight(zhi);
@@ -280,9 +290,17 @@ public class MainActivity extends AppCompatActivity {
             uploadIntegral(user, "2", zhi + "");
         }
     }
-//http://112.74.160.179/gjj_weixin/portal/inf/uploadIntegral.jsp?code=CE7362228DFB8D74A50E520DC8BC786885DEAFB0&classtype=1&num=999999999
+
     private void uploadIntegral(User user, String clas, String num) {
-        HttpUtil.getInstance().getApi().uploadIntegral(MySharedPreferences.getInstance().getCode(), user.getCode(), clas, num)
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(user.getCode() + ":");
+        buffer.append(clas + ":");
+        buffer.append(num + ":");
+        buffer.append(MySharedPreferences.getInstance().getCode());
+
+        String code = baseUtil.encode(buffer.toString());
+
+        HttpUtil.getInstance().getApi().uploadIntegral(code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {

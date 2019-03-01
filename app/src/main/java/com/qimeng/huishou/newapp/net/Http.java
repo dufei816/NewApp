@@ -5,6 +5,7 @@ import com.qimeng.huishou.newapp.entity.User;
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -26,12 +27,10 @@ public interface Http {
      * 根据学生操作的瓶子、纸分类，数量进行上传保存
      *
      * @param code
-     * @param clas
-     * @param num
      * @return
      */
-    @GET("uploadIntegral.jsp")
-    Observable<User> uploadIntegral(@Query("jqbh") String jqbh, @Query("code") String code, @Query("classtype") String clas, @Query("num") String num);
+    @POST("uploadIntegral.jsp")
+    Observable<User> uploadIntegral(@Query("code") String code);
 
 
     /**
