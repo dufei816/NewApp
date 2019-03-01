@@ -9,7 +9,7 @@ public class Config {
 
     public static final int OUT_TIME = 30;
 
-    public static final String BASE_URL = "http://admin.qimenghb.com/gjj_weixin/portal/inf/";
+    public static final String BASE_URL = "http://admin.qimenghb.com/portal/inf/";
 
     public static final boolean DEBUG = true;
 
