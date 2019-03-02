@@ -3,9 +3,17 @@ package com.qimeng.huishou.newapp.net;
 import com.qimeng.huishou.newapp.entity.User;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -29,8 +37,9 @@ public interface Http {
      * @param code
      * @return
      */
+    @Headers({"Content-type:application/json;charset=UTF-8"})
     @POST("uploadIntegral.jsp")
-    Observable<User> uploadIntegral(@Query("code") String code);
+    Observable<User> uploadIntegral(@Body RequestBody code);
 
 
     /**
@@ -39,7 +48,7 @@ public interface Http {
      * @param msg
      * @return
      */
-    @GET("uploadMacInf.jsp")
+    @POST("uploadMacInf.jsp")
     Observable<User> uploadMacInf(@Query("msg") String msg);
 
 
