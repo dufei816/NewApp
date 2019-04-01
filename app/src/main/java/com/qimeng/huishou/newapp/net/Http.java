@@ -37,6 +37,7 @@ public interface Http {
      * @param code
      * @return
      */
+
     @Headers({"Content-type:application/json;charset=UTF-8"})
     @POST("uploadIntegral.jsp")
     Observable<User> uploadIntegral(@Body RequestBody code);
@@ -48,7 +49,7 @@ public interface Http {
      * @param msg
      * @return
      */
-    @POST("uploadMacInf.jsp")
+    @GET("uploadMacInf.jsp")
     Observable<User> uploadMacInf(@Query("msg") String msg);
 
 

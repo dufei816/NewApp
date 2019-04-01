@@ -47,6 +47,8 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 @SuppressLint("CheckResult")
 @RequiresApi(api = Build.VERSION_CODES.FROYO)
@@ -299,8 +301,9 @@ public class MainActivity extends AppCompatActivity {
         buffer.append(MySharedPreferences.getInstance().getCode());
 
         String code = baseUtil.encode(buffer.toString());
+        RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), code);
 
-        HttpUtil.getInstance().getApi().uploadIntegral(code)
+        HttpUtil.getInstance().getApi().uploadIntegral(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {
